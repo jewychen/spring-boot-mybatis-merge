@@ -1,6 +1,6 @@
 package org.monkey.service;
 
-import org.monkey.dao.FirstDaoTest;
+import org.monkey.dao.MysqlDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    private FirstDaoTest firstDaoTest;
+    private MysqlDao firstDao;
 
 
     public String getUserByName(String name){
-        return firstDaoTest.getUserByName(name);
+        return firstDao.getUserByName(name);
     }
 
     public void testBatchInsertUser(){
-        firstDaoTest.testBatchInsert();
+        firstDao.testBatchInsert();
     }
 
 

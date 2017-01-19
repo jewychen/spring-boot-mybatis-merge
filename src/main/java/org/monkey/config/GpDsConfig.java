@@ -1,6 +1,5 @@
 package org.monkey.config;
 
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,15 +18,21 @@ import javax.sql.DataSource;
  * Created by monkey on 2017/1/6.
  */
 
+/**
+ * Spring Boot will initialize the SqlSessionTemplate by add @Configuration
+ * And sqlSessionTemplate will be binded with Mapper by adding @MapperScan
+ */
 @Configuration
-@MapperScan(basePackages = "org.monkey.mapper.gp", sqlSessionTemplateRef = "gpSqlSessionTemplate")
+@MapperScan(basePackages = "org.monkey.mapper.gp", sqlSessionTemplateRef = GpDsConfig.GP_SQL_SESSION_TEMPLATE)
 public class GpDsConfig {
+
+    public static final String GP_SQL_SESSION_TEMPLATE = "gpSqlSessionTemplate";
 
     private Logger logger = LoggerFactory.getLogger(GpDsConfig.class);
     @ConfigurationProperties(prefix = "datasource.gp")
     @Bean(name = "gpDs")
     public DataSource gpDataSource(){
-        logger.info("-------------------- 初始化   gpDataSource --------------------");
+        logger.info("-------------------- Initializing   gpDataSource --------------------");
 
         return DataSourceBuilder.create().build();
     }
@@ -40,7 +45,7 @@ public class GpDsConfig {
         return bean.getObject();
     }
 
-    @Bean(name = "gpSqlSessionTemplate")
+    @Bean(name = GpDsConfig.GP_SQL_SESSION_TEMPLATE)
     public SqlSessionTemplate gpSqlSessionTemplate(@Qualifier(value  = "gpSqlSessionFactory") SqlSessionFactory sqlSessionFactory){
         return new SqlSessionTemplate(sqlSessionFactory);
     }

@@ -2,7 +2,6 @@ package org.monkey.mapper.mysql;
 
 import org.apache.ibatis.annotations.*;
 import org.monkey.domain.User;
-import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public interface UserMapper {
 //    int insertBatch(@Param("dmoList") List<MybatisDemoDMO> dmoList);
 
     @Insert({"<script>",
-            "INSERT INTO USER ",
+            "INSERT INTO user ",
             "VALUES ",
             "<foreach  collection='userList' item='usr' separator=','>",
             "( #{usr.id,jdbcType=INTEGER}, #{usr.username,jdbcType=VARCHAR}, #{usr.password,jdbcType=VARCHAR} )",

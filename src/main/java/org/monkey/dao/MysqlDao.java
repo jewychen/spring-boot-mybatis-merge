@@ -2,7 +2,6 @@ package org.monkey.dao;
 
 import org.monkey.domain.User;
 import org.monkey.mapper.mysql.UserMapper;
-import org.monkey.support.DaoSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,9 @@ import java.util.List;
  * Created by monkey on 2017/1/5.
  */
 @Repository
-//public class FirstDaoTest extends DaoSupport{
-public class FirstDaoTest{
+public class MysqlDao {
 
-    private Logger logger = LoggerFactory.getLogger(FirstDaoTest.class);
+    private Logger logger = LoggerFactory.getLogger(MysqlDao.class);
 
     @Autowired
     public UserMapper userMapper;
@@ -31,7 +29,7 @@ public class FirstDaoTest{
 
     public void testBatchInsert(){
         List<User> userList = new ArrayList<User>();
-        for(int i=1; i<=1000; i++){
+        for(int i=1; i<=5; i++){
             User user = new User();
             user.setId((long)i);
             user.setUsername("usr" + i);
@@ -40,6 +38,7 @@ public class FirstDaoTest{
         }
 
         long startTime = System.currentTimeMillis();
+
         //Executor.BATCH 效率测试
 
 //        userList.forEach( userObj -> {

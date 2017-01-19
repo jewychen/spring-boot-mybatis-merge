@@ -1,13 +1,12 @@
 package org.monkey.schedule;
 
-import org.monkey.service.MyDomainService;
+import org.monkey.service.PersonService;
 import org.monkey.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import javax.sql.DataSource;
 
 /**
  * Created by monkey on 2017/1/5.
@@ -15,31 +14,30 @@ import javax.sql.DataSource;
 
 @Component
 public class MySchedule {
+    private static Logger logger = LoggerFactory.getLogger(MySchedule.class);
 
-//    @Autowired
-//    @Qualifier(value = "firstDs")
-//    private DataSource firstDs;
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private MyDomainService myDomainService;
+    private PersonService personService;
 
     @Scheduled(fixedRate = 5000)
-    public void TestSomething(){
+    public void testTwoDatasources(){
         System.out.println("testing...........");
-//        System.out.println(firstDs);
-//        System.out.println(firstDs.getClass());
 
+        //Mysql DS Test
+        String mysqlUserName = userService.getUserByName("jerry");
+        logger.info(".... userName from [mysql]:" + mysqlUserName);
 
-//        String username = userService.getUserByName("jerry");
-//        System.out.println("username:" + username);
-//
-//        String mydomain = myDomainService.getDomainById(1);
-//        System.out.println("mydomain:" + mydomain);
+        //Mysql batch Insert Test
+//        userService.testBatchInsertUser();
 
-        userService.testBatchInsertUser();
+        //GreenPlum DS Test
+        String gpUserName = personService.getPersonNameById(1);
+        logger.info(".... userName from [GP]:   " + gpUserName );
+
 
 
 

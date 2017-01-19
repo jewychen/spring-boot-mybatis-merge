@@ -25,13 +25,8 @@ import javax.sql.DataSource;
  */
 
 @Configuration
-//@ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class })
-//@ConditionalOnBean(DataSource.class)
 @EnableConfigurationProperties(MybatisProperties.class)
-//@AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class WebConfig{
     private static Logger logger = LoggerFactory.getLogger(WebConfig.class);
-
-
 
 }
