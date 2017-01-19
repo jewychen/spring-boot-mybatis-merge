@@ -1,12 +1,9 @@
 package org.monkey.domain;
 
-
-import java.sql.Date;
-
 /**
  * Created by monkey on 2017/1/6.
  */
-public class MyDomain {
+public class Person {
 
     private int id;
 
@@ -30,6 +27,6 @@ public class MyDomain {
 
     @Override
     public String toString() {
-        return String.format("MyDomain:[id:%d, name:%s]", id ,name);
+        return String.format("Person:[id:%d, name:%s]", id ,name);
     }
 }
